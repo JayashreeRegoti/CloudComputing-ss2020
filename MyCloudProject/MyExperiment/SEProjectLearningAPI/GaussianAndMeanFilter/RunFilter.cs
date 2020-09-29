@@ -25,6 +25,7 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
 
       lApi.AddModule(new MeanFilter());
 
+      logger?.LogInformation($"Applying Gaussian and Mean Filter...");
       double[,,] result = lApi.Run() as double[,,];
 
       var resultBitmap = GenerateResultBitmap(result);
