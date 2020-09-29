@@ -9,8 +9,6 @@ using MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter;
 
 using Newtonsoft.Json;
 
-using SelfOrganizingMap;
-
 using System;
 using System.IO;
 using System.Text;
@@ -57,20 +55,24 @@ namespace MyExperiment
 
       var startTime = DateTime.UtcNow;
 
-      // running until the input ends
-      string muploadedDataURI = RunFilter.Run(localStorageFilePath); //todo: call Gaussian and Mean Filter
+      // running Gaussian and Mean Filter
+      string resultFileName = RunFilter.Run(localStorageFilePath);
 
-      // Added delay
-      Thread.Sleep(5000);
       var endTime = DateTime.UtcNow;
 
+      // Step 2: Uploading output to blob storage
+      var uploadedUri =
+          await storageProvider.UploadResultFile(resultFileName, null);
+
+      var uploadUriAsString = Encoding.ASCII.GetString(uploadedUri);
+
       logger?.LogInformation(
-          $"Ran all test cases as per input from the blob storage");
+          $"Test cases output file uploaded successful. Blob URL: {uploadUriAsString}");
 
       long duration = endTime.Subtract(startTime).Seconds;
 
       var res = new ExperimentResult(this.config.GroupId, Guid.NewGuid().ToString());
-      UpdateExperimentResult(res, startTime, endTime, duration, localFileName, muploadedDataURI);
+      UpdateExperimentResult(res, startTime, endTime, duration, localStorageFilePath, uploadUriAsString);
       return res;
     }
 

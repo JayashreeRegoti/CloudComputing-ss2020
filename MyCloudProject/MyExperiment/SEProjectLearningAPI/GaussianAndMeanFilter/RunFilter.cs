@@ -12,10 +12,10 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
 {
   public static class RunFilter
   {
-    private readonly static string _path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
-
     public static string Run(string localStorageFilePath)
     {
+      var imageExtention = Path.GetExtension(localStorageFilePath);
+
       LearningApi lApi = new LearningApi();
       lApi.UseActionModule((Func<double[,,], IContext, double[,,]>)((input, ctx) =>
           GetDataArrayFromImage(localStorageFilePath)));
@@ -28,10 +28,12 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
 
       var resultImage = GenerateResultBitmap(result);
 
-      var localStorageResultLocation = Path.Combine(_path, "\\GaussianAndMeanFilter\\output.png");
+      var resultFileName = $"GaussianAndMeanFilterOutput.{imageExtention}";
+
+      var localStorageResultLocation = Path.Combine(Experiment.DataFolder, resultFileName);
       File.WriteAllBytes(localStorageResultLocation, resultImage.GetBytes());
 
-      return localStorageResultLocation;
+      return resultFileName;
     }
 
     private static double[,,] GetDataArrayFromImage(string inputImageFileName)
