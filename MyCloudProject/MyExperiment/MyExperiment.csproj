@@ -12,6 +12,7 @@
     <PackageReference Include="Azure.Storage.Blobs" Version="12.5.0-preview.4" />
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.1.7" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
 
