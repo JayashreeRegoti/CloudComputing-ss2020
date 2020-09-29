@@ -1,0 +1,9 @@
+D:\ss2020\cloud computing\MyProject\MyCloudProject\MyCloudProject.Common\bin\Debug\netstandard2.0\MyCloudProject.Common.deps.json
+D:\ss2020\cloud computing\MyProject\MyCloudProject\MyCloudProject.Common\bin\Debug\netstandard2.0\MyCloudProject.Common.dll
+D:\ss2020\cloud computing\MyProject\MyCloudProject\MyCloudProject.Common\bin\Debug\netstandard2.0\MyCloudProject.Common.pdb
+D:\ss2020\cloud computing\MyProject\MyCloudProject\MyCloudProject.Common\obj\Debug\netstandard2.0\MyCloudProject.Common.csprojAssemblyReference.cache
+D:\ss2020\cloud computing\MyProject\MyCloudProject\MyCloudProject.Common\obj\Debug\netstandard2.0\MyCloudProject.Common.AssemblyInfoInputs.cache
+D:\ss2020\cloud computing\MyProject\MyCloudProject\MyCloudProject.Common\obj\Debug\netstandard2.0\MyCloudProject.Common.AssemblyInfo.cs
+D:\ss2020\cloud computing\MyProject\MyCloudProject\MyCloudProject.Common\obj\Debug\netstandard2.0\MyCloudProject.Common.csproj.CoreCompileInputs.cache
+D:\ss2020\cloud computing\MyProject\MyCloudProject\MyCloudProject.Common\obj\Debug\netstandard2.0\MyCloudProject.Common.dll
+D:\ss2020\cloud computing\MyProject\MyCloudProject\MyCloudProject.Common\obj\Debug\netstandard2.0\MyCloudProject.Common.pdb

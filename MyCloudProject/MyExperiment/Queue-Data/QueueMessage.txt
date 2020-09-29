@@ -1,0 +1,9 @@
+ {
+     "ExperimentId" : "123",
+     "InputFile" : "https://mystorage307.blob.core.windows.net/inputfiles/RGB.csv", 
+     "Name" : "Gaussian and Mean test",
+     "Description" : "project review"
+ }
+
+
+
