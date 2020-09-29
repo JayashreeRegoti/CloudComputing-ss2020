@@ -2,16 +2,16 @@ using System;
 
 namespace MyExperiment.Exceptions
 {
-    public class EmptyBucketException : System.Exception
+  public class EmptyBucketException : System.Exception
+  {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="message"></param>
+    public EmptyBucketException(String message)
+      : base(message)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        public EmptyBucketException(String message)
-          : base(message)
-        {
-            
-        }
+
     }
+  }
 }

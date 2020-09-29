@@ -1,11 +1,11 @@
 ﻿namespace LearningFoundation
 {
-    /// <summary>
-    /// Used to map data from input values to features and label.
-    /// </summary>
-    public interface IDataMapper<TIn, TOut> : IPipelineModule<TIn, TOut>
-    {
-        new
+  /// <summary>
+  /// Used to map data from input values to features and label.
+  /// </summary>
+  public interface IDataMapper<TIn, TOut> : IPipelineModule<TIn, TOut>
+  {
+    new
         ///// <summary>
         ///// Index of the label.
         ///// </summary>
@@ -37,5 +37,5 @@
         /// <returns></returns>
         TOut Run(TIn rawData, IContext ctx);
 
-    }
+  }
 }
