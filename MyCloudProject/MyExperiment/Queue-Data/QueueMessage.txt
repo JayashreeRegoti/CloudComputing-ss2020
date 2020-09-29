@@ -1,8 +1,8 @@
  {
      "ExperimentId" : "123",
-     "InputFile" : "https://mystorage307.blob.core.windows.net/inputfiles/RGB.csv", 
-     "Name" : "Gaussian and Mean test",
-     "Description" : "project review"
+     "InputFile" : "https://mystorage307.blob.core.windows.net/inputfiles/test6.jpg", 
+     "Name" : "Gaussian and Mean filter",
+     "Description" : "Applied Gaussian and Mean filter on image"
  }
 
 
