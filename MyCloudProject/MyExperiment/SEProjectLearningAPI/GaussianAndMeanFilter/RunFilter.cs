@@ -2,18 +2,23 @@
 
 using LearningFoundation;
 
+using MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter.Extensions;
+
 using System;
 using System.Drawing;
+using System.IO;
 
 namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
 {
   public static class RunFilter
   {
-    public static double[,,] Run(string inputImageFileName)
+    private readonly static string _path = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
+
+    public static string Run(string localStorageFilePath)
     {
       LearningApi lApi = new LearningApi();
       lApi.UseActionModule((Func<double[,,], IContext, double[,,]>)((input, ctx) =>
-          GetDataArrayFromImage(inputImageFileName)));
+          GetDataArrayFromImage(localStorageFilePath)));
 
       lApi.AddModule(new GaussianFilter());
 
@@ -21,7 +26,12 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
 
       double[,,] result = lApi.Run() as double[,,];
 
-      return result;
+      var resultImage = GenerateResultBitmap(result);
+
+      var localStorageResultLocation = Path.Combine(_path, "\\GaussianAndMeanFilter\\output.png");
+      File.WriteAllBytes(localStorageResultLocation, resultImage.GetBytes());
+
+      return localStorageResultLocation;
     }
 
     private static double[,,] GetDataArrayFromImage(string inputImageFileName)
@@ -42,6 +52,22 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
         }
       }
       return data;
+    }
+
+    private static Bitmap GenerateResultBitmap(double[,,] result)
+    {
+      Bitmap resultBitmap = new Bitmap(result.GetLength(0), result.GetLength(1));
+
+      for (int x = 0; x < result.GetLength(0); x++)
+      {
+        for (int y = 0; y < result.GetLength(1); y++)
+        {
+          Color pixelColor = Color.FromArgb((int)result[x, y, 0], (int)result[x, y, 1], (int)result[x, y, 2]);
+          resultBitmap.SetPixel(x, y, pixelColor);
+        }
+      }
+
+      return resultBitmap;
     }
   }
 }

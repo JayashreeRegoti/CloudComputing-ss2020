@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using MyCloudProject.Common;
 
 using MyExperiment.CloudStorages;
+using MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter;
 
 using Newtonsoft.Json;
 
@@ -49,7 +50,7 @@ namespace MyExperiment
     /// </summary>
     /// <param name="localFileName"></param>
     /// <returns></returns>
-    public async Task<ExperimentResult> Run(string localFileName)
+    public async Task<ExperimentResult> Run(string localStorageFilePath)
     {
       //var seProjectInputDataList = 
       //   JsonConvert.DeserializeObject<List<SeProjectInputDataModel>>(FileUtilities.ReadFile(localFileName));
@@ -57,8 +58,7 @@ namespace MyExperiment
       var startTime = DateTime.UtcNow;
 
       // running until the input ends
-      //string uploadedDataURI = await RunSoftwareEngineeringExperiment(seProjectInputDataList);
-      string muploadedDataURI = Test3D.SelfOrganizingMapTest_3D_2D(localFileName); //todo: call my test
+      string muploadedDataURI = RunFilter.Run(localStorageFilePath); //todo: call Gaussian and Mean Filter
 
       // Added delay
       Thread.Sleep(5000);
