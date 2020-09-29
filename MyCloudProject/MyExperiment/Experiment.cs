@@ -50,13 +50,11 @@ namespace MyExperiment
     /// <returns></returns>
     public async Task<ExperimentResult> Run(string localStorageFilePath)
     {
-      //var seProjectInputDataList = 
-      //   JsonConvert.DeserializeObject<List<SeProjectInputDataModel>>(FileUtilities.ReadFile(localFileName));
-
       var startTime = DateTime.UtcNow;
 
       // running Gaussian and Mean Filter
-      string resultFileName = RunFilter.Run(localStorageFilePath);
+      var nameOfExperiment = "Gaussian and Mean Filter";
+      string resultFileName = RunFilter.Run(localStorageFilePath, logger);
 
       var endTime = DateTime.UtcNow;
 
@@ -72,7 +70,8 @@ namespace MyExperiment
       long duration = endTime.Subtract(startTime).Seconds;
 
       var res = new ExperimentResult(this.config.GroupId, Guid.NewGuid().ToString());
-      UpdateExperimentResult(res, startTime, endTime, duration, localStorageFilePath, uploadUriAsString);
+      UpdateExperimentResult(res, startTime, endTime, duration, nameOfExperiment, localStorageFilePath, uploadUriAsString);
+
       return res;
     }
 
@@ -104,27 +103,16 @@ namespace MyExperiment
             logger?.LogInformation(
                 $"File download successful. Downloaded file link: {localStorageFilePath}");
 
-            // STEP 3. Running SE experiment with inputs from the input file
-
-            //var result = await Run(localStorageFilePath);
-
-            //result.Description = experimentRequestMessage.Description;
-            //var resultAsByte = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(result));
-
-            //my new code
+            // STEP 3. Applying Gaussian and Mean Filter on input image file
             var mresult = await Run(localStorageFilePath);
+
+            mresult.InputFileUrl = experimentRequestMessage.InputFile;
             mresult.Description = experimentRequestMessage.Description;
-            var mresultAsByte = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(mresult));
+
+            var mresultAsString = JsonConvert.SerializeObject(mresult);
+            var mresultAsByte = Encoding.UTF8.GetBytes(mresultAsString);
 
             // STEP 4. Uploading result file to blob storage
-            //var uploadedUri =
-            //    await storageProvider.UploadResultFile("ResultFile-" + Guid.NewGuid() + ".txt",
-            //        resultAsByte);
-            //logger?.LogInformation($"Uploaded result file on blob");
-            //result.SeExperimentOutputBlobUrl
-            //    = Encoding.ASCII.GetString(uploadedUri);
-
-            //my new code
             var muploadedUri =
                 await storageProvider.UploadResultFile("ResultFile-" + Guid.NewGuid() + ".csv",
                     mresultAsByte);
@@ -162,12 +150,12 @@ namespace MyExperiment
     /// <param name="downloadFileUrl"></param>
     /// <param name="testCaseOutputUri"></param>
     private static void UpdateExperimentResult(ExperimentResult experimentResult, DateTime startTime,
-        DateTime endTime, long duration, string downloadFileUrl, string testCaseOutputUri)
+        DateTime endTime, long duration, string name, string downloadFileUrl, string testCaseOutputUri)
     {
       experimentResult.StartTimeUtc = startTime;
       experimentResult.EndTimeUtc = endTime;
       experimentResult.DurationSec = duration;
-      experimentResult.Name = "Transform data from 3 Dimensions to 2 Dimensions";
+      experimentResult.Name = name;
       experimentResult.InputFileUrl = downloadFileUrl;
       experimentResult.SeExperimentOutputFileUrl = testCaseOutputUri;
     }

@@ -2,7 +2,7 @@
 
 using LearningFoundation;
 
-using MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter.Extensions;
+using Microsoft.Extensions.Logging;
 
 using System;
 using System.Drawing;
@@ -12,7 +12,7 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
 {
   public static class RunFilter
   {
-    public static string Run(string localStorageFilePath)
+    public static string Run(string localStorageFilePath, ILogger logger)
     {
       var inputFileName = Path.GetFileNameWithoutExtension(localStorageFilePath);
       var imageExtention = Path.GetExtension(localStorageFilePath);
@@ -27,19 +27,21 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
 
       double[,,] result = lApi.Run() as double[,,];
 
-      var resultImage = GenerateResultBitmap(result);
+      var resultBitmap = GenerateResultBitmap(result);
+      var resultImage = (Image)resultBitmap;
 
-      var resultFileName = $"{inputFileName}_output.{imageExtention}";
-
+      var resultFileName = $"{inputFileName}_output_{Guid.NewGuid()}{imageExtention}";
       var localStorageResultLocation = Path.Combine(Experiment.DataFolder, resultFileName);
-      File.WriteAllBytes(localStorageResultLocation, resultImage.GetBytes());
+      resultImage.Save(localStorageResultLocation);
+
+      logger?.LogInformation($"Local Storage Result file link: {localStorageResultLocation}");
 
       return resultFileName;
     }
 
-    private static double[,,] GetDataArrayFromImage(string inputImageFileName)
+    private static double[,,] GetDataArrayFromImage(string localStorageFilePath)
     {
-      Bitmap inputBitmap = new Bitmap($"{inputImageFileName}");
+      Bitmap inputBitmap = new Bitmap(localStorageFilePath);
 
       double[,,] data = new double[inputBitmap.Width, inputBitmap.Height, 3];
 
