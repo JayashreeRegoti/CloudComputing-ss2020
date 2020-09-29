@@ -3,6 +3,7 @@ version: '3.4'
 services:
   mycloudproject:
     image: ${DOCKER_REGISTRY-}mycloudproject
+    container_name: mycloudproject
     build:
       context: .
       dockerfile: MyCloudProject/Dockerfile
