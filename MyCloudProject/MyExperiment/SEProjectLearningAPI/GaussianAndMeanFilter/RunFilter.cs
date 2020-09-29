@@ -14,6 +14,7 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
   {
     public static string Run(string localStorageFilePath)
     {
+      var inputFileName = Path.GetFileNameWithoutExtension(localStorageFilePath);
       var imageExtention = Path.GetExtension(localStorageFilePath);
 
       LearningApi lApi = new LearningApi();
@@ -28,7 +29,7 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
 
       var resultImage = GenerateResultBitmap(result);
 
-      var resultFileName = $"GaussianAndMeanFilterOutput.{imageExtention}";
+      var resultFileName = $"{inputFileName}_output.{imageExtention}";
 
       var localStorageResultLocation = Path.Combine(Experiment.DataFolder, resultFileName);
       File.WriteAllBytes(localStorageResultLocation, resultImage.GetBytes());
