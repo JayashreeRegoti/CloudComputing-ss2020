@@ -2,6 +2,7 @@
 using LearningFoundation;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
@@ -23,9 +24,9 @@ namespace MyExperiment.SEProjectLearningAPI.GaussianAndMeanFilter
             return result;
         }
 
-        private double[,,] GetDataArrayFromImage(string inputImageFileName)
+        private static double[,,] GetDataArrayFromImage(string inputImageFileName)
         {
-            Bitmap inputBitmap = new Bitmap($"{appPath}{inputImageFileName}");
+            Bitmap inputBitmap = new Bitmap($"{inputImageFileName}");
 
             double[,,] data = new double[inputBitmap.Width, inputBitmap.Height, 3];
 
