@@ -9,6 +9,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["MyCloudProject/MyCloudProject.csproj", "MyCloudProject/"]
 COPY ["MyCloudProject.Common/MyCloudProject.Common.csproj", "MyCloudProject.Common/"]
+COPY ["MyExperiment/MyExperiment.csproj", "MyExperiment/"]
 RUN dotnet restore "MyCloudProject/MyCloudProject.csproj"
 COPY . .
 WORKDIR "/src/MyCloudProject"
