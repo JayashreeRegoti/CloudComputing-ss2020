@@ -137,7 +137,7 @@ namespace LearningFoundation
       return data;
     }
 
-    public async Task TrainAsync()
+    public void TrainAsync()
     {
       if (this.Modules.Count <= 1)
         throw new MLException("Uninitialised pipeline.");
