@@ -25,7 +25,7 @@ namespace MyExperiment
     private MyConfig config;
 
     /// <summary>
-    /// 
+    /// Constructor
     /// </summary>
     /// <param name="configSection"></param>
     /// <param name="storageProvider"></param>
@@ -44,9 +44,9 @@ namespace MyExperiment
     }
 
     /// <summary>
-    /// 
+    /// Runs the Experiment
     /// </summary>
-    /// <param name="localFileName"></param>
+    /// <param name="localStorageFilePath"></param>
     /// <returns></returns>
     public async Task<ExperimentResult> Run(string localStorageFilePath)
     {
@@ -159,42 +159,5 @@ namespace MyExperiment
       experimentResult.InputFileUrl = downloadFileUrl;
       experimentResult.SeExperimentOutputFileUrl = testCaseOutputUri;
     }
-
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="seProjectInputDataList"></param>
-    /// <returns></returns>
-    /*  private async Task<string> RunSoftwareEngineeringExperiment(
-          List<SeProjectInputDataModel> seProjectInputDataList)
-      {
-
-          //var cellPerColumnExperiment = new CellPerColumnExperiment();
-          // Step 1: Run all test cases in a file
-          foreach (var input in seProjectInputDataList)
-          {
-
-              // TODO: Change here if necessary
-              //String output = cellPerColumnExperiment.CellPerColumn(input.NumberOfCells, input.NumberOfIterations);
-              //var seProjectOutputModel = new SeProjectOutputModel(output);
-              //var outputAsByte = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(seProjectOutputModel));
-
-              // Writing output in a file
-              //FileUtilities.WriteDataInFile("CombinedOutputOfSoftwareExperiment.txt", output);
-          }
-
-          // Step 2: Uploading output to blob storage
-          var uploadedUri =
-              await storageProvider.UploadResultFile("CombinedOutputOfSoftwareExperiment.txt",
-                  null);
-          logger?.LogInformation(
-              $"Test cases output file uploaded successful. Blob URL: {Encoding.ASCII.GetString(uploadedUri)}");
-
-          // return a string and delete the combined file if possible
-          return Encoding.ASCII.GetString(uploadedUri);
-
-      }
-      */
   }
 }
